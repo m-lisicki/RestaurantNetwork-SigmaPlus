@@ -27,16 +27,12 @@ struct ContentView: View {
             
             AddressesListView()
                 .navigationTitle("Σ⁺ Client Data Manager")
+            #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+            #endif
                 .environmentObject(viewModel)
                 .toolbarBackground(.thinMaterial)
                 .padding()
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        ContentView()
     }
 }

@@ -17,6 +17,8 @@ class ViewModel: ObservableObject {
     @Published var addresses = [SQLData]()
     @Published var chosenIndex = 0
     
+    @Published var sort = false
+    
     init() {
         do {
             db = try Connection(.temporary)
@@ -58,11 +60,11 @@ class ViewModel: ObservableObject {
             try db?.execute(
             """
             INSERT INTO Address (AddressID, Country, ZipCode, City, StreetAddress, BuildingNumber) VALUES
-            (1, 'Poland', '30-059', 'Krakow', 'Rynek Główny', '1'),
-            (2, 'Poland', '00-001', 'Warsaw', 'Aleje Jerozolimskie', '1'),
-            (3, 'Poland', '80-800', 'Gdansk', 'Długa', '1'),
-            (4, 'Poland', '31-001', 'Krakow', 'Floriańska', '15'),
-            (5, 'Poland', '30-063', 'Krakow', 'Jana Pawła II', '2'),
+            (1, 'Poland', '30-059', 'Kraków', 'Rynek Główny', '1'),
+            (2, 'Poland', '00-001', 'Warszawa', 'Aleje Jerozolimskie', '101'),
+            (3, 'Poland', '80-800', 'Gdańsk', 'Długa', '13'),
+            (4, 'Poland', '31-001', 'Kraków', 'Floriańska', '15'),
+            (5, 'Poland', '30-063', 'Kraków', 'Jana Pawła II', '2'),
             (6, 'USA', '90210', 'Beverly Hills', 'Rodeo Drive', '100'),
             (7, 'UK', 'SW1A 2AA', 'London', 'Buckingham Palace', '1');
             """
@@ -139,9 +141,11 @@ class ViewModel: ObservableObject {
                 let address = SQLData(rowToLoad: addressDetails)
                 addresses.append(address)
             }
-            sortAddresses()
+            if sort {
+                sortAddresses()
+            }
         } catch {
-            log.error("Fetching addresses error: \(error.localizedDescription)")
+            log.error("Fetching addresses error: \(error)")
         }
     }
     

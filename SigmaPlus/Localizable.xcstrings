@@ -1,0 +1,228 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj"
+          }
+        }
+      }
+    },
+    "Add New Address" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj nowy adres"
+          }
+        }
+      }
+    },
+    "Building Number:" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numer budynku:"
+          }
+        }
+      }
+    },
+    "Building: %@" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Budynek: %@"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuluj"
+          }
+        }
+      }
+    },
+    "City:" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miasto:"
+          }
+        }
+      }
+    },
+    "City: %@" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miasto: %@"
+          }
+        }
+      }
+    },
+    "Country:" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kraj:"
+          }
+        }
+      }
+    },
+    "Country: %@" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kraj: %@"
+          }
+        }
+      }
+    },
+    "Database Error" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Błąd Bazy Danych"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuń"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gotowe"
+          }
+        }
+      }
+    },
+    "ID:" : {
+      "shouldTranslate" : false
+    },
+    "ID: %lld" : {
+      "shouldTranslate" : false
+    },
+    "Modify" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modyfikuj"
+          }
+        }
+      }
+    },
+    "Modify Address" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmień Adres"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "shouldTranslate" : false
+    },
+    "Required" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wymagane"
+          }
+        }
+      }
+    },
+    "Required (3 characters)" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wymagane (3 symbole)"
+          }
+        }
+      }
+    },
+    "Sort" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sortuj"
+          }
+        }
+      }
+    },
+    "Street Address:" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ulica:"
+          }
+        }
+      }
+    },
+    "Street: %@" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ulica: %@"
+          }
+        }
+      }
+    },
+    "Zip Code:" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kod Pocztowy:"
+          }
+        }
+      }
+    },
+    "Zip Code: %@" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kod Pocztowy: %@"
+          }
+        }
+      }
+    },
+    "Σ⁺ Client Data Manager" : {
+      "shouldTranslate" : false
+    }
+  },
+  "version" : "1.0"
+}

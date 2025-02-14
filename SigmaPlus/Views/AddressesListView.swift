@@ -15,10 +15,21 @@ struct AddressesListView: View {
     @State var showErrorAlert = false
     @State var currentError: String?
     
+    @State private var searchText = ""
+    
+    var searchResults: [SQLData] {
+        if searchText.isEmpty {
+            return viewModel.addresses
+        } else {
+            return viewModel.addresses.filter { $0.contains(searchText) }
+        }
+    }
+
+    
     var body: some View {
-        List(viewModel.addresses.indices, id: \.self) { index in
+        List(searchResults.indices, id: \.self) { index in
             VStack(alignment: .leading, spacing: 4) {
-                let address = viewModel.addresses[index]
+                let address = searchResults[index]
                 Text("ID: \(address.addressID)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -30,18 +41,18 @@ struct AddressesListView: View {
                     .font(.subheadline)
                 if !address.streetAddress.isEmpty {
                     Text("Street: \(address.streetAddress)")
-                        .font(.body)
+                        .font(.subheadline)
                 }
                 if !address.buildingNumber.isEmpty {
                     Text("Building: \(address.buildingNumber)")
-                        .font(.body)
+                        .font(.subheadline)
                 }
             }
             .padding()
             .swipeActions {
                 Button("Delete") {
                     do {
-                        try viewModel.deleteAddress(addressID: viewModel.addresses[index].addressID)
+                        try viewModel.deleteAddress(addressID: searchResults[index].addressID)
                     } catch {
                         currentError = "\(error)"
                         showErrorAlert = true
@@ -60,22 +71,29 @@ struct AddressesListView: View {
             }
             .padding()
         }
+        .searchable(text: $searchText)
         .scrollContentBackground(.hidden)
         .background(.thinMaterial)
         .cornerRadius(7)
         .toolbar {
-                Button(action: {
-                    isAddSheetOpen = true
-                }) {
-                    Label("Add", systemImage: "plus.circle.fill")
-                }
+            Button(action: {
+                viewModel.sort.toggle()
+                viewModel.fetchAddresses()
+            }) {
+                Label("Sort", systemImage: viewModel.sort ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            }
+            Button(action: {
+                isAddSheetOpen = true
+            }) {
+                Label("Add", systemImage: "plus.circle.fill")
+            }
         }
         .databaseErrorAlert(isPresented: $showErrorAlert, error: currentError)
         .onAppear() {
             viewModel.fetchAddresses()
         }
         .sheet(isPresented: $isModifierSheetOpen) {
-            ModifyAddressView(activeSQLRow: viewModel.addresses[viewModel.chosenIndex], openSheet: $isModifierSheetOpen, isUpdating: true, originalIndex: viewModel.addresses[viewModel.chosenIndex].addressID)
+            ModifyAddressView(activeSQLRow: searchResults[viewModel.chosenIndex], openSheet: $isModifierSheetOpen, isUpdating: true, originalIndex: searchResults[viewModel.chosenIndex].addressID)
                 .presentationBackground(.thinMaterial)
                 .presentationDetents([.medium])
         }

@@ -37,6 +37,17 @@ struct SQLData: Comparable {
     static func < (lhs: SQLData, rhs: SQLData) -> Bool {
         lhs.addressID < rhs.addressID
     }
+    
+    func contains(_ searchText: String) -> Bool {
+        if let searchInt = Int(searchText), searchInt == addressID {
+            return true
+        }
+        return country.localizedStandardContains(searchText) ||
+        zipCode.localizedStandardContains(searchText) ||
+        city.localizedStandardContains(searchText) ||
+        streetAddress.localizedStandardContains(searchText)
+        || buildingNumber.localizedStandardContains(searchText)
+    }
 }
 
 struct ModifyAddressView: View {
@@ -108,9 +119,10 @@ struct ModifyAddressView: View {
             }
             .scrollContentBackground(.hidden)
             HStack(spacing: 10) {
-                Button("Cancel", role: .cancel) {
+                Button("Cancel") {
                     openSheet = false
                 }
+                .keyboardShortcut(.cancelAction)
                 
                 Button("Done") {
                     do {
@@ -130,8 +142,8 @@ struct ModifyAddressView: View {
                     viewModel.fetchAddresses()
                     openSheet = false
                 }
-                .disabled(!isFormValid)
                 .keyboardShortcut(.defaultAction)
+                .disabled(!isFormValid)
             }
             .databaseErrorAlert(isPresented: $showErrorAlert, error: currentError)
         }
@@ -142,7 +154,8 @@ struct ModifyAddressView: View {
 extension View {
     func databaseErrorAlert(isPresented: Binding<Bool>, error: String?) -> some View {
         self.alert("Database Error", isPresented: isPresented) {
-            Button("OK", role: .cancel) { }
+            Button("OK") { }
+                .keyboardShortcut(.defaultAction)
         } message: {
             Text(error ?? "Unexpected error.")
         }
