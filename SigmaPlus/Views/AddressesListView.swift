@@ -11,24 +11,37 @@ struct AddressesListView: View {
     @EnvironmentObject var viewModel: ViewModel
     @State var isAddSheetOpen = false
     @State var isModifierSheetOpen = false
-    @State var chosenIndex = 0
     
     @State var showErrorAlert = false
     @State var currentError: String?
     
     var body: some View {
         List(viewModel.addresses.indices, id: \.self) { index in
-            VStack(alignment: .leading) {
-                ForEach(viewModel.addresses[index].keys.sorted(), id: \.self) { key in
-                    if let value = viewModel.addresses[index][key] {
-                        Text("\(key): \(value ?? "NULL")")
-                    }
+            VStack(alignment: .leading, spacing: 4) {
+                let address = viewModel.addresses[index]
+                Text("ID: \(address.addressID)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                Text("Country: \(address.country)")
+                    .font(.headline)
+                Text("Zip Code: \(address.zipCode)")
+                    .font(.subheadline)
+                Text("City: \(address.city)")
+                    .font(.subheadline)
+                if !address.streetAddress.isEmpty {
+                    Text("Street: \(address.streetAddress)")
+                        .font(.body)
+                }
+                if !address.buildingNumber.isEmpty {
+                    Text("Building: \(address.buildingNumber)")
+                        .font(.body)
                 }
             }
+            .padding()
             .swipeActions {
                 Button("Delete") {
                     do {
-                        try viewModel.deleteAddress(addressID: Int(viewModel.addresses[index]["AddressID"] as! Int64))
+                        try viewModel.deleteAddress(addressID: viewModel.addresses[index].addressID)
                     } catch {
                         currentError = "\(error)"
                         showErrorAlert = true
@@ -40,8 +53,8 @@ struct AddressesListView: View {
             }
             .swipeActions {
                 Button("Modify") {
+                    viewModel.chosenIndex = index
                     isModifierSheetOpen = true
-                    chosenIndex = index
                 }
                 .tint(.accentColor)
             }
@@ -51,24 +64,20 @@ struct AddressesListView: View {
         .background(.thinMaterial)
         .cornerRadius(7)
         .toolbar {
-            ToolbarItem {
                 Button(action: {
                     isAddSheetOpen = true
                 }) {
-                    Image(systemName: "plus.circle.fill")
+                    Label("Add", systemImage: "plus.circle.fill")
                 }
-            }
         }
         .databaseErrorAlert(isPresented: $showErrorAlert, error: currentError)
         .onAppear() {
             viewModel.fetchAddresses()
         }
         .sheet(isPresented: $isModifierSheetOpen) {
-            if let addressID = viewModel.addresses[chosenIndex]["AddressID"] as? Int64 {
-                ModifyAddressView(activeSQLRow: SQLData(rowToLoad: viewModel.addresses[chosenIndex]), openSheet: $isModifierSheetOpen, isUpdating: true, originalIndex: Int(addressID))
-                    .presentationBackground(.thinMaterial)
-                    .presentationDetents([.medium])
-            }
+            ModifyAddressView(activeSQLRow: viewModel.addresses[viewModel.chosenIndex], openSheet: $isModifierSheetOpen, isUpdating: true, originalIndex: viewModel.addresses[viewModel.chosenIndex].addressID)
+                .presentationBackground(.thinMaterial)
+                .presentationDetents([.medium])
         }
         .sheet(isPresented: $isAddSheetOpen) {
             ModifyAddressView(openSheet: $isAddSheetOpen)

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Sigma Plus.png",
+      "filename" : "Sigma Plus - light mode.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "Sigma Plus.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

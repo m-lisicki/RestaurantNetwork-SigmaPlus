@@ -14,7 +14,8 @@ let log = Logger()
 class ViewModel: ObservableObject {
     
     var db: Connection?
-    @Published var addresses = [[String: Any?]]()
+    @Published var addresses = [SQLData]()
+    @Published var chosenIndex = 0
     
     init() {
         do {
@@ -125,19 +126,26 @@ class ViewModel: ObservableObject {
     }
     
     func fetchAddresses() {
-        addresses = [[String: Any?]]()
+        addresses = [SQLData]()
+
         do {
             let query = "SELECT * FROM Address;"
             let stmt = try db?.prepare(query)
             for row in stmt! {
                 var addressDetails = [String: Any?]()
-                for (index, name) in stmt!.columnNames.enumerated() {
-                    addressDetails[name] = row[index]
+                for (index, columnName) in stmt!.columnNames.enumerated() {
+                    addressDetails[columnName] = row[index]
                 }
-                addresses.append(addressDetails)
+                let address = SQLData(rowToLoad: addressDetails)
+                addresses.append(address)
             }
+            sortAddresses()
         } catch {
             log.error("Fetching addresses error: \(error.localizedDescription)")
         }
+    }
+    
+    func sortAddresses() {
+        addresses = addresses.sorted()
     }
 }

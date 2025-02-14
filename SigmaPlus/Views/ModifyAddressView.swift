@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct SQLData {
+struct SQLData: Comparable {
+    
     var addressID: Int
     var country: String
     var zipCode: String
@@ -31,6 +32,10 @@ struct SQLData {
         self.city = rowToLoad["City"] as? String ?? ""
         self.streetAddress = rowToLoad["StreetAddress"] as? String ?? ""
         self.buildingNumber = rowToLoad["BuildingNumber"] as? String ?? ""
+    }
+    
+    static func < (lhs: SQLData, rhs: SQLData) -> Bool {
+        lhs.addressID < rhs.addressID
     }
 }
 
@@ -58,9 +63,9 @@ struct ModifyAddressView: View {
                 Section(header: Text(isUpdating ? "Modify Address" : "Add New Address").font(.headline)) {
                     HStack {
 #if os(iOS)
-                        Text("Address ID:")
+                        Text("ID:")
 #endif
-                        TextField("Address ID:", value: $activeSQLRow.addressID, format: .number, prompt: Text("Required"))
+                        TextField("ID:", value: $activeSQLRow.addressID, format: .number, prompt: Text("Required"))
 #if os(iOS)
                             .keyboardType(.numberPad)
 #endif
@@ -75,10 +80,7 @@ struct ModifyAddressView: View {
 #if os(iOS)
                         Text("Zip Code:")
 #endif
-                        TextField("Zip Code:", text: $activeSQLRow.zipCode, prompt: Text("Required (3 digits)"))
-#if os(iOS)
-                            .keyboardType(.numberPad)
-#endif
+                        TextField("Zip Code:", text: $activeSQLRow.zipCode, prompt: Text("Required (3 characters)"))
                     }
                     
                     HStack {
