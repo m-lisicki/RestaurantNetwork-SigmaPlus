@@ -2,6 +2,8 @@
 
 This is a simple SwiftUI app that showcases interaction with an existing SQLite database from the [restaurantsDatabase GitHub repository](https://github.com/Matix57/restaurantsDatabase). The app allows users to list, add, edit, and delete restaurant address records using the [SQLite.swift](https://github.com/stephencelis/SQLite.swift) library.
 
+> **Note:** This project builds upon a university group assignment focused on database design, in collaboration with fellow students. The user interface was developed separately as an additional feature for extra credit.
+
 ## Features
 
 - **View Restaurant List**: Display a list of restaurant addresses stored in the SQLite database.
